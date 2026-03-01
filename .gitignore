@@ -22,3 +22,6 @@ Thumbs.db
 # Environment
 .env
 *.local
+
+# Local planning docs
+PLAN.md
