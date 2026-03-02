@@ -1,0 +1,124 @@
+package com.hevy.sdk.common
+
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+
+class ValidationTest {
+
+    // --- validatePage ---
+
+    @Test
+    fun validatePageAcceptsPositiveValues() {
+        assertEquals(1, Validation.validatePage(1))
+        assertEquals(100, Validation.validatePage(100))
+    }
+
+    @Test
+    fun validatePageRejectsZero() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validatePage(0)
+        }
+    }
+
+    @Test
+    fun validatePageRejectsNegative() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validatePage(-1)
+        }
+    }
+
+    // --- validatePageSize (default max) ---
+
+    @Test
+    fun validatePageSizeAcceptsValidRange() {
+        assertEquals(1, Validation.validatePageSize(1))
+        assertEquals(5, Validation.validatePageSize(5))
+        assertEquals(10, Validation.validatePageSize(10))
+    }
+
+    @Test
+    fun validatePageSizeRejectsZero() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validatePageSize(0)
+        }
+    }
+
+    @Test
+    fun validatePageSizeRejectsOverMax() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validatePageSize(11)
+        }
+    }
+
+    // --- validatePageSize (custom max for exercise templates) ---
+
+    @Test
+    fun validatePageSizeAcceptsCustomMax() {
+        assertEquals(
+            100,
+            Validation.validatePageSize(100, maxPageSize = ApiConstants.MAX_EXERCISE_TEMPLATE_PAGE_SIZE),
+        )
+    }
+
+    @Test
+    fun validatePageSizeRejectsOverCustomMax() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validatePageSize(101, maxPageSize = ApiConstants.MAX_EXERCISE_TEMPLATE_PAGE_SIZE)
+        }
+    }
+
+    // --- validateId ---
+
+    @Test
+    fun validateIdAcceptsNonBlank() {
+        assertEquals("abc-123", Validation.validateId("abc-123", "workoutId"))
+    }
+
+    @Test
+    fun validateIdRejectsBlank() {
+        val ex = assertFailsWith<IllegalArgumentException> {
+            Validation.validateId("", "workoutId")
+        }
+        assertEquals("workoutId must not be blank", ex.message)
+    }
+
+    @Test
+    fun validateIdRejectsWhitespaceOnly() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateId("   ", "routineId")
+        }
+    }
+
+    @Test
+    fun validateIdAcceptsUuid() {
+        val uuid = "b459cba5-cd6d-463c-abd6-54f8eafcadcb"
+        assertEquals(uuid, Validation.validateId(uuid, "workoutId"))
+    }
+
+    @Test
+    fun validateIdAcceptsShortHexId() {
+        assertEquals("D04AC939", Validation.validateId("D04AC939", "exerciseTemplateId"))
+    }
+
+    @Test
+    fun validateIdRejectsPathTraversal() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateId("../admin", "workoutId")
+        }
+    }
+
+    @Test
+    fun validateIdRejectsSlash() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateId("abc/def", "workoutId")
+        }
+    }
+
+    @Test
+    fun validateIdRejectsQueryString() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateId("abc?key=val", "workoutId")
+        }
+    }
+}
