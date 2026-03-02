@@ -5,7 +5,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 class HevyExceptionTest {
-
     @Test
     fun unauthorizedCarriesMessage() {
         val ex = HevyException.Unauthorized("Invalid API key")

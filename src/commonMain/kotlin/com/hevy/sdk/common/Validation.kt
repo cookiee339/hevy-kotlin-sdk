@@ -6,7 +6,6 @@ package com.hevy.sdk.common
  * Validates at the SDK boundary so invalid requests never reach the network.
  */
 internal object Validation {
-
     /** Validates and returns a page number (must be >= 1). */
     fun validatePage(page: Int): Int {
         require(page >= 1) { "page must be >= 1, was $page" }
@@ -36,7 +35,10 @@ internal object Validation {
      * (alphanumeric, hyphens). This prevents path traversal and
      * URL injection when IDs are interpolated into request paths.
      */
-    fun validateId(id: String, paramName: String): String {
+    fun validateId(
+        id: String,
+        paramName: String,
+    ): String {
         require(id.isNotBlank()) { "$paramName must not be blank" }
         require(SAFE_ID_REGEX.matches(id)) {
             "$paramName contains invalid characters, was: $id"

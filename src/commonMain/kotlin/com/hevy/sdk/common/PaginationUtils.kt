@@ -23,16 +23,17 @@ fun <T> paginate(
     startPage: Int = 1,
     maxPages: Int = DEFAULT_MAX_PAGES,
     fetchPage: suspend (page: Int) -> Page<T>,
-): Flow<T> = flow {
-    Validation.validatePage(startPage)
-    require(maxPages >= 1) { "maxPages must be >= 1, was $maxPages" }
+): Flow<T> =
+    flow {
+        Validation.validatePage(startPage)
+        require(maxPages >= 1) { "maxPages must be >= 1, was $maxPages" }
 
-    var currentPage = startPage
-    var fetched = 0
-    do {
-        val page = fetchPage(currentPage)
-        page.items.forEach { emit(it) }
-        currentPage++
-        fetched++
-    } while (page.hasNextPage && fetched < maxPages)
-}
+        var currentPage = startPage
+        var fetched = 0
+        do {
+            val page = fetchPage(currentPage)
+            page.items.forEach { emit(it) }
+            currentPage++
+            fetched++
+        } while (page.hasNextPage && fetched < maxPages)
+    }

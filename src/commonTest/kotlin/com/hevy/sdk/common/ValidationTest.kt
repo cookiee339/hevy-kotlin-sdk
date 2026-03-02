@@ -5,7 +5,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class ValidationTest {
-
     // --- validatePage ---
 
     @Test
@@ -77,9 +76,10 @@ class ValidationTest {
 
     @Test
     fun validateIdRejectsBlank() {
-        val ex = assertFailsWith<IllegalArgumentException> {
-            Validation.validateId("", "workoutId")
-        }
+        val ex =
+            assertFailsWith<IllegalArgumentException> {
+                Validation.validateId("", "workoutId")
+            }
         assertEquals("workoutId must not be blank", ex.message)
     }
 

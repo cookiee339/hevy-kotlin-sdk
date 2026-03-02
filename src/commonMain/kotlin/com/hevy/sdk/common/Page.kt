@@ -18,9 +18,10 @@ data class Page<out T>(
     val hasNextPage: Boolean get() = page < pageCount
 
     /** Returns a new [Page] with items transformed by [transform]. */
-    fun <R> map(transform: (T) -> R): Page<R> = Page(
-        page = page,
-        pageCount = pageCount,
-        items = items.map(transform),
-    )
+    fun <R> map(transform: (T) -> R): Page<R> =
+        Page(
+            page = page,
+            pageCount = pageCount,
+            items = items.map(transform),
+        )
 }

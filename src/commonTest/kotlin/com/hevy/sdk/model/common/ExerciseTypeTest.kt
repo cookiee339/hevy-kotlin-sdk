@@ -88,13 +88,21 @@ class ExerciseTypeTest {
 
     @Test
     fun allExpectedValuesPresent() {
-        val expected = listOf(
-            "weight_reps", "reps_only", "bodyweight_reps", "bodyweight_assisted_reps",
-            "duration", "weight_duration", "distance_duration", "short_distance_weight",
-        )
+        val expected =
+            listOf(
+                "weight_reps",
+                "reps_only",
+                "bodyweight_reps",
+                "bodyweight_assisted_reps",
+                "duration",
+                "weight_duration",
+                "distance_duration",
+                "short_distance_weight",
+            )
 
-        val actual = ExerciseType.entries
-            .map { json.encodeToString(it).removeSurrounding("\"") }
+        val actual =
+            ExerciseType.entries
+                .map { json.encodeToString(it).removeSurrounding("\"") }
 
         assertEquals(expected.sorted(), actual.sorted())
     }

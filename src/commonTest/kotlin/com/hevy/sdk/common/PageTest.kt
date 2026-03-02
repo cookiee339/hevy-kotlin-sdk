@@ -6,7 +6,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PageTest {
-
     @Test
     fun hasNextPageWhenPageLessThanPageCount() {
         val page = Page(page = 1, pageCount = 3, items = listOf("a", "b"))

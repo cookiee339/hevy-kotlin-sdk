@@ -9,7 +9,6 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class HevyClientConfigTest {
-
     @Test
     fun defaultConfigUsesBaseUrlAndNoCustomClient() {
         val config = HevyClientConfig(apiKey = "test-api-key")
@@ -21,10 +20,11 @@ class HevyClientConfigTest {
 
     @Test
     fun customBaseUrl() {
-        val config = HevyClientConfig(
-            apiKey = "key",
-            baseUrl = "https://custom.api.com",
-        )
+        val config =
+            HevyClientConfig(
+                apiKey = "key",
+                baseUrl = "https://custom.api.com",
+            )
 
         assertEquals("https://custom.api.com", config.baseUrl)
     }

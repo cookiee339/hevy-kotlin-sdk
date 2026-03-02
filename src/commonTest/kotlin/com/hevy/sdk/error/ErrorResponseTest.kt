@@ -5,7 +5,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ErrorResponseTest {
-
     private val json = Json { ignoreUnknownKeys = true }
 
     @Test

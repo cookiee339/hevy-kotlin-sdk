@@ -46,13 +46,15 @@ class EquipmentCategoryTest {
 
     @Test
     fun allExpectedValuesPresent() {
-        val expected = listOf(
-            "none", "barbell", "dumbbell", "kettlebell", "machine",
-            "plate", "resistance_band", "suspension", "other",
-        )
+        val expected =
+            listOf(
+                "none", "barbell", "dumbbell", "kettlebell", "machine",
+                "plate", "resistance_band", "suspension", "other",
+            )
 
-        val actual = EquipmentCategory.entries
-            .map { json.encodeToString(it).removeSurrounding("\"") }
+        val actual =
+            EquipmentCategory.entries
+                .map { json.encodeToString(it).removeSurrounding("\"") }
 
         assertEquals(expected.sorted(), actual.sorted())
     }

@@ -60,15 +60,17 @@ class MuscleGroupTest {
 
     @Test
     fun allExpectedValuesPresent() {
-        val expected = listOf(
-            "abdominals", "shoulders", "biceps", "triceps", "forearms",
-            "quadriceps", "hamstrings", "calves", "glutes", "abductors",
-            "adductors", "lats", "upper_back", "traps", "lower_back",
-            "chest", "cardio", "neck", "full_body", "other",
-        )
+        val expected =
+            listOf(
+                "abdominals", "shoulders", "biceps", "triceps", "forearms",
+                "quadriceps", "hamstrings", "calves", "glutes", "abductors",
+                "adductors", "lats", "upper_back", "traps", "lower_back",
+                "chest", "cardio", "neck", "full_body", "other",
+            )
 
-        val actual = MuscleGroup.entries
-            .map { json.encodeToString(it).removeSurrounding("\"") }
+        val actual =
+            MuscleGroup.entries
+                .map { json.encodeToString(it).removeSurrounding("\"") }
 
         assertEquals(expected.sorted(), actual.sorted())
     }

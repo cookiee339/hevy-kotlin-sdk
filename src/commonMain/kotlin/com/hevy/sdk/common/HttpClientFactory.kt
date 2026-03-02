@@ -18,13 +18,15 @@ import io.ktor.serialization.kotlinx.json.json
  * - Automatic error response → [com.hevy.sdk.error.HevyException] mapping
  */
 internal object HttpClientFactory {
-
     /**
      * Creates a new [HttpClient] using the given [engine] with SDK defaults installed.
      *
      * Primarily used for testing (pass [io.ktor.client.engine.mock.MockEngine]).
      */
-    fun create(config: HevyClientConfig, engine: HttpClientEngine): HttpClient =
+    fun create(
+        config: HevyClientConfig,
+        engine: HttpClientEngine,
+    ): HttpClient =
         HttpClient(engine) {
             install(config)
         }

@@ -10,7 +10,6 @@ sealed class HevyException(
     message: String,
     cause: Throwable? = null,
 ) : Exception(message, cause) {
-
     /** HTTP status code, or null for non-HTTP errors (e.g. network). */
     abstract val statusCode: Int?
 
@@ -33,11 +32,11 @@ sealed class HevyException(
     class RateLimited(
         val retryAfterSeconds: Int? = null,
     ) : HevyException(
-        buildString {
-            append("Rate limited.")
-            if (retryAfterSeconds != null) append(" Retry after $retryAfterSeconds seconds.")
-        },
-    ) {
+            buildString {
+                append("Rate limited.")
+                if (retryAfterSeconds != null) append(" Retry after $retryAfterSeconds seconds.")
+            },
+        ) {
         override val statusCode: Int = 429
     }
 

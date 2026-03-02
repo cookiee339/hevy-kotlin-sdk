@@ -62,8 +62,9 @@ class SetTypeTest {
     fun allExpectedValuesPresent() {
         val expected = listOf("warmup", "normal", "failure", "dropset")
 
-        val actual = SetType.entries
-            .map { json.encodeToString(it).removeSurrounding("\"") }
+        val actual =
+            SetType.entries
+                .map { json.encodeToString(it).removeSurrounding("\"") }
 
         assertEquals(expected.sorted(), actual.sorted())
     }
