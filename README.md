@@ -108,9 +108,9 @@ hevy.exerciseTemplates.get(templateId)      // Get by ID
 ### Routine Folders
 
 ```kotlin
-hevy.routineFolders.list(page, pageSize) // Paginated list
-hevy.routineFolders.create(request)      // Create a folder
-hevy.routineFolders.get(folderId)        // Get by ID
+hevy.routineFolders.list(page, pageSize)  // Paginated list
+hevy.routineFolders.create(request)       // Create a folder
+hevy.routineFolders.get(folderId: Int)    // Get by ID (Int, not String)
 ```
 
 ### Exercise History
@@ -192,8 +192,40 @@ try {
     println("Server error (${e.statusCode}): ${e.message}")
 } catch (e: HevyException.NetworkError) {
     println("Network error: ${e.message}")
+} catch (e: HevyException.Unknown) {
+    println("Unexpected status ${e.statusCode}: ${e.message}")
 }
 ```
+
+## Development
+
+### Prerequisites
+
+- JDK 17+
+- Gradle 9.3+ (wrapper included)
+
+<!-- AUTO-GENERATED from build.gradle.kts — do not edit manually -->
+### Gradle Commands
+
+| Command                              | Description                                                             |
+|--------------------------------------|-------------------------------------------------------------------------|
+| `./gradlew build`                    | Compile all KMP targets                                                 |
+| `./gradlew jvmTest`                  | Run tests on JVM                                                        |
+| `./gradlew jsNodeTest`               | Run tests on Node.js                                                    |
+| `./gradlew macosArm64Test`           | Run tests on macOS (Apple Silicon)                                      |
+| `./gradlew iosSimulatorArm64Test`    | Run tests on iOS Simulator                                              |
+| `./gradlew allTests`                 | Run tests on all platforms                                              |
+| `./gradlew detekt`                   | Static analysis (detekt)                                                |
+| `./gradlew ktlintCheck`              | Code style check (ktlint)                                               |
+| `./gradlew ktlintFormat`             | Auto-format code (ktlint)                                               |
+| `./gradlew publishToMavenLocal`      | Publish to local Maven repository                                       |
+| `./gradlew publish`                  | Publish to GitHub Packages (requires `GITHUB_ACTOR` and `GITHUB_TOKEN`) |
+<!-- END AUTO-GENERATED -->
+
+### CI / Release
+
+- **CI** runs on every push/PR to `main`: lint (detekt + ktlint), then tests on JVM, JS, and Apple targets in parallel.
+- **Release** is triggered by pushing a `v*` tag. It runs CI first, then publishes all targets to GitHub Packages.
 
 ## License
 
