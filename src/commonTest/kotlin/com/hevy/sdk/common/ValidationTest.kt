@@ -121,4 +121,39 @@ class ValidationTest {
             Validation.validateId("abc?key=val", "workoutId")
         }
     }
+
+    // --- validateIntId ---
+
+    @Test
+    fun validateIntIdAcceptsPositiveValues() {
+        assertEquals(1, Validation.validateIntId(1, "folderId"))
+        assertEquals(42, Validation.validateIntId(42, "folderId"))
+        assertEquals(Int.MAX_VALUE, Validation.validateIntId(Int.MAX_VALUE, "folderId"))
+    }
+
+    @Test
+    fun validateIntIdRejectsZero() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateIntId(0, "folderId")
+        }
+    }
+
+    @Test
+    fun validateIntIdRejectsNegative() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateIntId(-1, "folderId")
+        }
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateIntId(Int.MIN_VALUE, "folderId")
+        }
+    }
+
+    @Test
+    fun validateIntIdErrorMessageIncludesParamName() {
+        val ex =
+            assertFailsWith<IllegalArgumentException> {
+                Validation.validateIntId(0, "folderId")
+            }
+        assertEquals("folderId must be positive, was 0", ex.message)
+    }
 }

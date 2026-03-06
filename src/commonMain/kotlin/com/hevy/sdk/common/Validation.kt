@@ -46,5 +46,14 @@ internal object Validation {
         return id
     }
 
+    /** Validates and returns a positive integer ID (e.g. routine folder IDs). */
+    fun validateIntId(
+        id: Int,
+        paramName: String,
+    ): Int {
+        require(id > 0) { "$paramName must be positive, was $id" }
+        return id
+    }
+
     private val SAFE_ID_REGEX = Regex("^[A-Za-z0-9\\-]+$")
 }
