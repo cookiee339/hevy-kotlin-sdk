@@ -66,7 +66,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/hevy-sdk/hevy-kotlin-sdk")
+            url = uri("https://maven.pkg.github.com/cookiee339/hevy-kotlin-sdk")
             credentials {
                 username = System.getenv("GITHUB_ACTOR") ?: ""
                 password = System.getenv("GITHUB_TOKEN") ?: ""
@@ -77,7 +77,7 @@ publishing {
         pom {
             name.set("Hevy Kotlin SDK")
             description.set("Kotlin Multiplatform SDK for the Hevy fitness app API")
-            url.set("https://github.com/hevy-sdk/hevy-kotlin-sdk")
+            url.set("https://github.com/cookiee339/hevy-kotlin-sdk")
             licenses {
                 license {
                     name.set("MIT License")
@@ -85,9 +85,9 @@ publishing {
                 }
             }
             scm {
-                connection.set("scm:git:git://github.com/hevy-sdk/hevy-kotlin-sdk.git")
-                developerConnection.set("scm:git:ssh://github.com/hevy-sdk/hevy-kotlin-sdk.git")
-                url.set("https://github.com/hevy-sdk/hevy-kotlin-sdk")
+                connection.set("scm:git:git://github.com/cookiee339/hevy-kotlin-sdk.git")
+                developerConnection.set("scm:git:ssh://github.com/cookiee339/hevy-kotlin-sdk.git")
+                url.set("https://github.com/cookiee339/hevy-kotlin-sdk")
             }
             developers {
                 developer {
