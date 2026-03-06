@@ -21,8 +21,8 @@ class WorkoutExerciseTest {
                 "exercise_template_id": "05293BCA",
                 "supersets_id": 1,
                 "sets": [
-                    {"index": 0, "type": "warmup", "weight_kg": 60.0, "reps": 10.0},
-                    {"index": 1, "type": "normal", "weight_kg": 100.0, "reps": 8.0}
+                    {"index": 0, "type": "warmup", "weight_kg": 60.0, "reps": 10},
+                    {"index": 1, "type": "normal", "weight_kg": 100.0, "reps": 8}
                 ]
             }
             """.trimIndent()
@@ -88,7 +88,7 @@ class WorkoutExerciseTest {
                 supersetsId = null,
                 sets =
                     listOf(
-                        WorkoutSet(index = 0, type = SetType.NORMAL, weightKg = 180.0, reps = 5.0),
+                        WorkoutSet(index = 0, type = SetType.NORMAL, weightKg = 180.0, reps = 5),
                     ),
             )
 
@@ -106,7 +106,7 @@ class WorkoutExerciseTest {
                 title = "Test",
                 notes = "",
                 exerciseTemplateId = "ID",
-                supersetsId = null,
+                supersetsId = 1,
                 sets = emptyList(),
             )
 

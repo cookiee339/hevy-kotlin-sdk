@@ -20,12 +20,12 @@ class CreateWorkoutRequestTest {
                         description = "Quad focus",
                         startTime = "2024-08-14T12:00:00Z",
                         endTime = "2024-08-14T12:30:00Z",
-                        isPrivate = false,
+                        isPrivate = true,
                         exercises =
                             listOf(
                                 CreateWorkoutExercise(
                                     exerciseTemplateId = "D04AC939",
-                                    supersetId = null,
+                                    supersetId = 1,
                                     notes = "Felt good",
                                     sets =
                                         listOf(

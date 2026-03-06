@@ -65,4 +65,7 @@ enum class MuscleGroup {
 
     @SerialName("other")
     OTHER,
+
+    /** Fallback for unrecognised values from the API. */
+    UNKNOWN,
 }

@@ -11,12 +11,12 @@ import io.ktor.client.HttpClient
  *
  * @property apiKey Hevy API key (UUID). Required.
  * @property baseUrl API base URL. Defaults to the Hevy production URL.
- * @property httpClient Optional pre-configured Ktor [HttpClient]. When null, the SDK creates one.
+ * @property httpClient Internal. Optional pre-configured Ktor [HttpClient]. When null, the SDK creates one.
  */
 class HevyClientConfig(
     internal val apiKey: String,
     val baseUrl: String = ApiConstants.BASE_URL,
-    val httpClient: HttpClient? = null,
+    internal val httpClient: HttpClient? = null,
 ) {
     init {
         require(apiKey.isNotBlank()) { "apiKey must not be blank" }
@@ -36,6 +36,8 @@ class HevyClientConfig(
         return apiKey == other.apiKey && baseUrl == other.baseUrl
     }
 
+    // apiKey participates in hashCode for correct multi-key HashMap behaviour.
+    // hashCode is not reversible, so the leakage risk is negligible.
     override fun hashCode(): Int {
         var result = apiKey.hashCode()
         result = 31 * result + baseUrl.hashCode()

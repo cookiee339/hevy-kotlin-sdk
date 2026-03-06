@@ -3,6 +3,7 @@ package com.hevy.sdk.common
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class ValidationTest {
     // --- validatePage ---
@@ -155,5 +156,68 @@ class ValidationTest {
                 Validation.validateIntId(0, "folderId")
             }
         assertEquals("folderId must be positive, was 0", ex.message)
+    }
+
+    // --- validateTimestamp ---
+
+    @Test
+    fun validateTimestampAcceptsValidIso8601() {
+        assertEquals(
+            "2024-01-01T00:00:00Z",
+            Validation.validateTimestamp("2024-01-01T00:00:00Z", "since"),
+        )
+    }
+
+    @Test
+    fun validateTimestampAcceptsEndOfYear() {
+        assertEquals(
+            "2024-12-31T23:59:59Z",
+            Validation.validateTimestamp("2024-12-31T23:59:59Z", "endDate"),
+        )
+    }
+
+    @Test
+    fun validateTimestampRejectsBlank() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateTimestamp("", "since")
+        }
+    }
+
+    @Test
+    fun validateTimestampRejectsWhitespace() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateTimestamp("   ", "startDate")
+        }
+    }
+
+    @Test
+    fun validateTimestampRejectsDateOnly() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateTimestamp("2024-01-01", "since")
+        }
+    }
+
+    @Test
+    fun validateTimestampRejectsArbitraryString() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateTimestamp("not-a-date", "since")
+        }
+    }
+
+    @Test
+    fun validateTimestampRejectsUrlInjection() {
+        assertFailsWith<IllegalArgumentException> {
+            Validation.validateTimestamp("2024-01-01T00:00:00Z&extra=val", "since")
+        }
+    }
+
+    @Test
+    fun validateTimestampErrorMessageIncludesParamName() {
+        val ex =
+            assertFailsWith<IllegalArgumentException> {
+                Validation.validateTimestamp("bad", "since")
+            }
+        assertTrue(ex.message!!.contains("since"))
+        assertTrue(ex.message!!.contains("ISO 8601"))
     }
 }

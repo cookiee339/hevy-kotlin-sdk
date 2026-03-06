@@ -32,8 +32,8 @@ class ExerciseHistoryApi internal constructor(
         endDate: String? = null,
     ): List<ExerciseHistoryEntry> {
         Validation.validateId(exerciseTemplateId, "exerciseTemplateId")
-        startDate?.let { require(it.isNotBlank()) { "startDate must not be blank" } }
-        endDate?.let { require(it.isNotBlank()) { "endDate must not be blank" } }
+        startDate?.let { Validation.validateTimestamp(it, "startDate") }
+        endDate?.let { Validation.validateTimestamp(it, "endDate") }
 
         val response =
             httpClient.get("$baseUrl/v1/exercise_history/$exerciseTemplateId") {

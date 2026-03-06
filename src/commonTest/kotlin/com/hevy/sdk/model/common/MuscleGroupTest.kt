@@ -1,9 +1,16 @@
 package com.hevy.sdk.model.common
 
 import com.hevy.sdk.common.SdkJson
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlin.test.Test
 import kotlin.test.assertEquals
+
+@Serializable
+private data class MuscleGroupWrapper(
+    @SerialName("group") val group: MuscleGroup = MuscleGroup.UNKNOWN,
+)
 
 class MuscleGroupTest {
     private val json = SdkJson.instance
@@ -54,8 +61,16 @@ class MuscleGroupTest {
     }
 
     @Test
-    fun hasExactlyTwentyValues() {
-        assertEquals(20, MuscleGroup.entries.size)
+    fun unknownValueCoercesToDefault() {
+        val input = """{"group": "new_future_group"}"""
+        val wrapper = json.decodeFromString<MuscleGroupWrapper>(input)
+
+        assertEquals(MuscleGroup.UNKNOWN, wrapper.group)
+    }
+
+    @Test
+    fun hasExactlyTwentyOneValues() {
+        assertEquals(21, MuscleGroup.entries.size)
     }
 
     @Test
@@ -70,6 +85,7 @@ class MuscleGroupTest {
 
         val actual =
             MuscleGroup.entries
+                .filter { it != MuscleGroup.UNKNOWN }
                 .map { json.encodeToString(it).removeSurrounding("\"") }
 
         assertEquals(expected.sorted(), actual.sorted())

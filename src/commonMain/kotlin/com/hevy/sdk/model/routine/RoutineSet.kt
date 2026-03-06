@@ -10,10 +10,10 @@ data class RoutineSet(
     val index: Int,
     val type: SetType,
     @SerialName("weight_kg") val weightKg: Double? = null,
-    val reps: Double? = null,
+    val reps: Int? = null,
     @SerialName("rep_range") val repRange: RepRange? = null,
-    @SerialName("distance_meters") val distanceMeters: Double? = null,
-    @SerialName("duration_seconds") val durationSeconds: Double? = null,
+    @SerialName("distance_meters") val distanceMeters: Int? = null,
+    @SerialName("duration_seconds") val durationSeconds: Int? = null,
     val rpe: Double? = null,
     @SerialName("custom_metric") val customMetric: Double? = null,
 )

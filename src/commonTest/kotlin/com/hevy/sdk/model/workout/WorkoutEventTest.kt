@@ -77,7 +77,7 @@ class WorkoutEventTest {
                             "exercise_template_id": "SQ-1",
                             "supersets_id": null,
                             "sets": [
-                                {"index": 0, "type": "normal", "weight_kg": 140.0, "reps": 5.0}
+                                {"index": 0, "type": "normal", "weight_kg": 140.0, "reps": 5}
                             ]
                         }
                     ]

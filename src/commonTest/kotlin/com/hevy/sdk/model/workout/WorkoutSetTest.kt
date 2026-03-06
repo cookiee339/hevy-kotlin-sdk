@@ -18,7 +18,7 @@ class WorkoutSetTest {
                 "index": 0,
                 "type": "normal",
                 "weight_kg": 100.0,
-                "reps": 10.0,
+                "reps": 10,
                 "distance_meters": null,
                 "duration_seconds": null,
                 "rpe": 9.5,
@@ -31,7 +31,7 @@ class WorkoutSetTest {
         assertEquals(0, set.index)
         assertEquals(SetType.NORMAL, set.type)
         assertEquals(100.0, set.weightKg)
-        assertEquals(10.0, set.reps)
+        assertEquals(10, set.reps)
         assertNull(set.distanceMeters)
         assertNull(set.durationSeconds)
         assertEquals(9.5, set.rpe)
@@ -63,8 +63,8 @@ class WorkoutSetTest {
                 "type": "normal",
                 "weight_kg": null,
                 "reps": null,
-                "distance_meters": 5000.0,
-                "duration_seconds": 1800.0,
+                "distance_meters": 5000,
+                "duration_seconds": 1800,
                 "rpe": null,
                 "custom_metric": 50.0
             }
@@ -72,8 +72,8 @@ class WorkoutSetTest {
 
         val set = json.decodeFromString<WorkoutSet>(input)
 
-        assertEquals(5000.0, set.distanceMeters)
-        assertEquals(1800.0, set.durationSeconds)
+        assertEquals(5000, set.distanceMeters)
+        assertEquals(1800, set.durationSeconds)
         assertEquals(50.0, set.customMetric)
     }
 
@@ -84,7 +84,7 @@ class WorkoutSetTest {
                 index = 2,
                 type = SetType.DROPSET,
                 weightKg = 80.5,
-                reps = 8.0,
+                reps = 8,
                 distanceMeters = null,
                 durationSeconds = null,
                 rpe = 8.5,
@@ -104,7 +104,10 @@ class WorkoutSetTest {
                 index = 0,
                 type = SetType.NORMAL,
                 weightKg = 100.0,
-                reps = 10.0,
+                reps = 10,
+                distanceMeters = 500,
+                durationSeconds = 60,
+                customMetric = 1.0,
             )
 
         val encoded = json.encodeToString(WorkoutSet.serializer(), set)

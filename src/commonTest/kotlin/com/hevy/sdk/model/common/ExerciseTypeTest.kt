@@ -1,9 +1,16 @@
 package com.hevy.sdk.model.common
 
 import com.hevy.sdk.common.SdkJson
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlin.test.Test
 import kotlin.test.assertEquals
+
+@Serializable
+private data class ExerciseTypeWrapper(
+    @SerialName("type") val type: ExerciseType = ExerciseType.UNKNOWN,
+)
 
 class ExerciseTypeTest {
     private val json = SdkJson.instance
@@ -82,8 +89,16 @@ class ExerciseTypeTest {
     }
 
     @Test
-    fun hasExactlyEightValues() {
-        assertEquals(8, ExerciseType.entries.size)
+    fun unknownValueCoercesToDefault() {
+        val input = """{"type": "new_future_type"}"""
+        val wrapper = json.decodeFromString<ExerciseTypeWrapper>(input)
+
+        assertEquals(ExerciseType.UNKNOWN, wrapper.type)
+    }
+
+    @Test
+    fun hasExactlyNineValues() {
+        assertEquals(9, ExerciseType.entries.size)
     }
 
     @Test
@@ -102,6 +117,7 @@ class ExerciseTypeTest {
 
         val actual =
             ExerciseType.entries
+                .filter { it != ExerciseType.UNKNOWN }
                 .map { json.encodeToString(it).removeSurrounding("\"") }
 
         assertEquals(expected.sorted(), actual.sorted())

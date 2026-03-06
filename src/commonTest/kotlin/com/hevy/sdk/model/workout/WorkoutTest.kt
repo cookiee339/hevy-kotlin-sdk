@@ -33,7 +33,7 @@ class WorkoutTest {
                             "index": 0,
                             "type": "normal",
                             "weight_kg": 100.0,
-                            "reps": 10.0,
+                            "reps": 10,
                             "rpe": 8.5
                         }
                     ]
@@ -69,7 +69,7 @@ class WorkoutTest {
         val set = exercise.sets[0]
         assertEquals(SetType.NORMAL, set.type)
         assertEquals(100.0, set.weightKg)
-        assertEquals(10.0, set.reps)
+        assertEquals(10, set.reps)
         assertEquals(8.5, set.rpe)
     }
 
@@ -117,7 +117,7 @@ class WorkoutTest {
                             supersetsId = null,
                             sets =
                                 listOf(
-                                    WorkoutSet(index = 0, type = SetType.NORMAL, weightKg = 140.0, reps = 5.0),
+                                    WorkoutSet(index = 0, type = SetType.NORMAL, weightKg = 140.0, reps = 5),
                                 ),
                         ),
                     ),

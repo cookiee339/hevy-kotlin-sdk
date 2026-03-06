@@ -3,6 +3,8 @@ package com.hevy.sdk.model.exercise
 import com.hevy.sdk.model.common.EquipmentCategory
 import com.hevy.sdk.model.common.ExerciseType
 import com.hevy.sdk.model.common.MuscleGroup
+import kotlinx.serialization.EncodeDefault
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -19,5 +21,7 @@ data class CreateExerciseTemplateBody(
     @SerialName("exercise_type") val exerciseType: ExerciseType,
     @SerialName("equipment_category") val equipmentCategory: EquipmentCategory,
     @SerialName("muscle_group") val muscleGroup: MuscleGroup,
+    @OptIn(ExperimentalSerializationApi::class)
+    @EncodeDefault
     @SerialName("other_muscles") val otherMuscles: List<MuscleGroup> = emptyList(),
 )

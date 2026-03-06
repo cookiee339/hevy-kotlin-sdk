@@ -29,4 +29,7 @@ enum class ExerciseType {
 
     @SerialName("short_distance_weight")
     SHORT_DISTANCE_WEIGHT,
+
+    /** Fallback for unrecognised values from the API. */
+    UNKNOWN,
 }

@@ -1,9 +1,16 @@
 package com.hevy.sdk.model.common
 
 import com.hevy.sdk.common.SdkJson
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlin.test.Test
 import kotlin.test.assertEquals
+
+@Serializable
+private data class SetTypeWrapper(
+    @SerialName("type") val type: SetType = SetType.UNKNOWN,
+)
 
 class SetTypeTest {
     private val json = SdkJson.instance
@@ -54,8 +61,16 @@ class SetTypeTest {
     }
 
     @Test
-    fun hasExactlyFourValues() {
-        assertEquals(4, SetType.entries.size)
+    fun unknownValueCoercesToDefault() {
+        val input = """{"type": "new_future_type"}"""
+        val wrapper = json.decodeFromString<SetTypeWrapper>(input)
+
+        assertEquals(SetType.UNKNOWN, wrapper.type)
+    }
+
+    @Test
+    fun hasExactlyFiveValues() {
+        assertEquals(5, SetType.entries.size)
     }
 
     @Test
@@ -64,6 +79,7 @@ class SetTypeTest {
 
         val actual =
             SetType.entries
+                .filter { it != SetType.UNKNOWN }
                 .map { json.encodeToString(it).removeSurrounding("\"") }
 
         assertEquals(expected.sorted(), actual.sorted())

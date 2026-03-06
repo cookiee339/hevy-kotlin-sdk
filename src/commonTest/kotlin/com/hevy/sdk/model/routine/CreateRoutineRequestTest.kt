@@ -4,6 +4,7 @@ import com.hevy.sdk.common.SdkJson
 import com.hevy.sdk.model.common.SetType
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class CreateRoutineRequestTest {
@@ -30,7 +31,7 @@ class CreateRoutineRequestTest {
     }
 
     @Test
-    fun serializesNullFolderId() {
+    fun omitsFolderIdWhenNull() {
         val request =
             CreateRoutineRequest(
                 routine =
@@ -44,7 +45,7 @@ class CreateRoutineRequestTest {
 
         val encoded = json.encodeToString(CreateRoutineRequest.serializer(), request)
 
-        assertTrue(encoded.contains("\"folder_id\":null"))
+        assertFalse(encoded.contains("folder_id"), "Null folder_id should be omitted")
     }
 
     @Test

@@ -32,4 +32,7 @@ enum class EquipmentCategory {
 
     @SerialName("other")
     OTHER,
+
+    /** Fallback for unrecognised values from the API. */
+    UNKNOWN,
 }

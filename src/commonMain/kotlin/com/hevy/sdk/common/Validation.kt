@@ -55,5 +55,22 @@ internal object Validation {
         return id
     }
 
+    /**
+     * Validates that a timestamp string matches ISO 8601 format (e.g. "2024-01-01T00:00:00Z").
+     *
+     * Prevents malformed or malicious values from being sent as query parameters.
+     */
+    fun validateTimestamp(
+        value: String,
+        paramName: String,
+    ): String {
+        require(value.isNotBlank()) { "$paramName must not be blank" }
+        require(ISO_8601_REGEX.matches(value)) {
+            "$paramName must be ISO 8601 (e.g. 2024-01-01T00:00:00Z), was: $value"
+        }
+        return value
+    }
+
     private val SAFE_ID_REGEX = Regex("^[A-Za-z0-9\\-]+$")
+    private val ISO_8601_REGEX = Regex("""^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$""")
 }

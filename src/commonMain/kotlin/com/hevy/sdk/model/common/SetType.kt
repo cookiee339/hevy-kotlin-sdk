@@ -17,4 +17,7 @@ enum class SetType {
 
     @SerialName("dropset")
     DROPSET,
+
+    /** Fallback for unrecognised values from the API. */
+    UNKNOWN,
 }

@@ -32,16 +32,17 @@ internal object HttpClientFactory {
         }
 
     /**
-     * Returns the user-provided [HevyClientConfig.httpClient] if present,
-     * otherwise creates a new default-engine client with SDK defaults.
+     * Returns a new default-engine client with SDK defaults,
+     * or wraps the user-provided [HevyClientConfig.httpClient] with SDK plugins.
      *
-     * **Security note:** A caller-provided [HttpClient] is used as-is.
-     * It will **not** have the SDK's `api-key` header, JSON content negotiation,
-     * or error-to-[com.hevy.sdk.error.HevyException] mapping installed.
-     * Callers must configure their own client accordingly.
+     * Even when a caller provides their own [HttpClient], the SDK installs
+     * the `api-key` header, JSON content negotiation, and error mapping
+     * on top of it via [io.ktor.client.HttpClient.config].
      */
     fun createOrUse(config: HevyClientConfig): HttpClient =
-        config.httpClient ?: HttpClient {
+        config.httpClient?.config {
+            install(config)
+        } ?: HttpClient {
             install(config)
         }
 

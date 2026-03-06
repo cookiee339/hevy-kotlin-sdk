@@ -69,7 +69,7 @@ class WorkoutsApi internal constructor(
     ): Page<WorkoutEvent> {
         Validation.validatePage(page)
         Validation.validatePageSize(pageSize)
-        require(since.isNotBlank()) { "since must not be blank" }
+        Validation.validateTimestamp(since, "since")
 
         val response =
             httpClient.get("$baseUrl/v1/workouts/events") {

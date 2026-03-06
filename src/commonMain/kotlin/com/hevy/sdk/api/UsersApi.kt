@@ -4,7 +4,6 @@ import com.hevy.sdk.model.user.UserInfo
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -22,15 +21,14 @@ class UsersApi internal constructor(
      *
      * Note: The API wraps the response in `{"data": ...}` which is unwrapped automatically.
      */
-    suspend fun getInfo(): UserInfo {
-        return httpClient.get("$baseUrl/v1/user/info")
+    suspend fun getInfo(): UserInfo =
+        httpClient.get("$baseUrl/v1/user/info")
             .body<UserInfoResponse>()
             .data
-    }
 }
 
 /** Internal wrapper for GET /v1/user/info which returns {"data": ...}. */
 @Serializable
 internal data class UserInfoResponse(
-    @SerialName("data") val data: UserInfo,
+    val data: UserInfo,
 )

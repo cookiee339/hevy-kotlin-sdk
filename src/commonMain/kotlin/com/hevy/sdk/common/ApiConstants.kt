@@ -1,5 +1,6 @@
 package com.hevy.sdk.common
 
+/** SDK-wide constants: base URL, pagination defaults, and header names. */
 internal object ApiConstants {
     const val BASE_URL = "https://api.hevyapp.com"
 

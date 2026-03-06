@@ -42,5 +42,8 @@ private fun parseErrorMessage(body: String): String? =
     } else {
         runCatching {
             SdkJson.instance.decodeFromString<ErrorResponse>(body).error
-        }.getOrNull()
+        }.getOrNull()?.let(::sanitizeMessage)
     }
+
+/** Strips control characters and truncates to prevent log injection from server-supplied error strings. */
+private fun sanitizeMessage(raw: String): String = raw.replace(Regex("[\r\n\t]"), " ").take(500)

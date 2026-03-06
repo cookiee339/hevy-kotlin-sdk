@@ -56,7 +56,7 @@ class RoutinesApiTest {
                             "index": 0,
                             "type": "normal",
                             "weight_kg": 100.0,
-                            "reps": 10.0,
+                            "reps": 10,
                             "rep_range": {"start": 8, "end": 12},
                             "rpe": 8.0
                         }

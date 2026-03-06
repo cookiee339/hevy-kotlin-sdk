@@ -31,7 +31,7 @@ class RoutineTest {
                             "index": 0,
                             "type": "normal",
                             "weight_kg": 100.0,
-                            "reps": 10.0,
+                            "reps": 10,
                             "rep_range": {"start": 8, "end": 12},
                             "rpe": 8.0
                         }
@@ -160,7 +160,7 @@ class RoutineTest {
                                         index = 0,
                                         type = SetType.NORMAL,
                                         weightKg = 140.0,
-                                        reps = 5.0,
+                                        reps = 5,
                                         repRange = RepRange(start = 3, end = 5),
                                     ),
                                 ),
