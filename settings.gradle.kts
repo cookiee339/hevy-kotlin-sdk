@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "hevy-kotlin-sdk"
 
-include("sdk")
+include("sdk", "cli")
