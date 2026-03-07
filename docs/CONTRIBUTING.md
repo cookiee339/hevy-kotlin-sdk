@@ -10,7 +10,7 @@
 ```bash
 git clone https://github.com/hevy-sdk/hevy-kotlin-sdk.git
 cd hevy-kotlin-sdk
-./gradlew build
+./gradlew sdk:build
 ```
 
 The Gradle wrapper is included — no separate Gradle installation required.
@@ -18,35 +18,35 @@ The Gradle wrapper is included — no separate Gradle installation required.
 ## Available Commands
 
 <!-- AUTO-GENERATED from build.gradle.kts — do not edit manually -->
-| Command                              | Description                                |
-|--------------------------------------|--------------------------------------------|
-| `./gradlew build`                    | Compile all KMP targets                    |
-| `./gradlew jvmTest`                  | Run tests on JVM                           |
-| `./gradlew jsNodeTest`               | Run tests on Node.js                       |
-| `./gradlew macosArm64Test`           | Run tests on macOS (Apple Silicon)         |
-| `./gradlew iosSimulatorArm64Test`    | Run tests on iOS Simulator                 |
-| `./gradlew allTests`                 | Run tests on all platforms                 |
-| `./gradlew detekt`                   | Static analysis (detekt)                   |
-| `./gradlew ktlintCheck`              | Code style check (ktlint)                  |
-| `./gradlew ktlintFormat`             | Auto-format code (ktlint)                  |
-| `./gradlew publishToMavenLocal`      | Publish to local Maven repository          |
+| Command                                  | Description                                |
+|------------------------------------------|--------------------------------------------|
+| `./gradlew sdk:build`                    | Compile all KMP targets                    |
+| `./gradlew sdk:jvmTest`                  | Run tests on JVM                           |
+| `./gradlew sdk:jsNodeTest`               | Run tests on Node.js                       |
+| `./gradlew sdk:macosArm64Test`           | Run tests on macOS (Apple Silicon)         |
+| `./gradlew sdk:iosSimulatorArm64Test`    | Run tests on iOS Simulator                 |
+| `./gradlew sdk:allTests`                 | Run tests on all platforms                 |
+| `./gradlew sdk:detekt`                   | Static analysis (detekt)                   |
+| `./gradlew sdk:ktlintCheck`              | Code style check (ktlint)                  |
+| `./gradlew sdk:ktlintFormat`             | Auto-format code (ktlint)                  |
+| `./gradlew sdk:publishToMavenLocal`      | Publish to local Maven repository          |
 <!-- END AUTO-GENERATED -->
 
 ## Testing
 
-All tests live in `src/commonTest/` and run on every KMP target via Ktor's `MockEngine`.
+All tests live in `sdk/src/commonTest/` and run on every KMP target via Ktor's `MockEngine`.
 
 ```bash
 # Quick feedback loop (JVM only)
-./gradlew jvmTest
+./gradlew sdk:jvmTest
 
 # Full cross-platform suite
-./gradlew allTests
+./gradlew sdk:allTests
 ```
 
 ### Writing Tests
 
-- Place tests in `src/commonTest/kotlin/com/hevy/sdk/` mirroring the main source layout.
+- Place tests in `sdk/src/commonTest/kotlin/com/hevy/sdk/` mirroring the main source layout.
 - Use `ktor-client-mock` to stub HTTP responses — no real network calls in tests.
 - Follow the existing pattern: each API test creates a `HevyClient` via `HevyClient.create(apiKey, mockEngine)`.
 
@@ -60,25 +60,26 @@ The project enforces two complementary style tools:
 Both run in CI. Fix issues locally before pushing:
 
 ```bash
-./gradlew detekt ktlintCheck   # check
-./gradlew ktlintFormat          # auto-fix formatting
+./gradlew sdk:detekt sdk:ktlintCheck   # check
+./gradlew sdk:ktlintFormat              # auto-fix formatting
 ```
 
 ## Project Structure
 
 ```
-src/
-├── commonMain/kotlin/com/hevy/sdk/
-│   ├── HevyClient.kt              # Entry point
-│   ├── HevyClientConfig.kt        # Configuration
-│   ├── common/                     # Page, pagination, HTTP factory, validation
-│   ├── error/                      # HevyException sealed hierarchy
-│   ├── model/                      # Domain models (workout, routine, exercise, etc.)
-│   └── api/                        # Domain API classes (one per domain)
-├── commonTest/                     # All tests (MockEngine-based)
-├── jvmMain/                        # OkHttp engine
-├── jsMain/                         # JS engine
-└── nativeMain/                     # Darwin engine (iOS/macOS)
+sdk/
+└── src/
+    ├── commonMain/kotlin/com/hevy/sdk/
+    │   ├── HevyClient.kt              # Entry point
+    │   ├── HevyClientConfig.kt        # Configuration
+    │   ├── common/                     # Page, pagination, HTTP factory, validation
+    │   ├── error/                      # HevyException sealed hierarchy
+    │   ├── model/                      # Domain models (workout, routine, exercise, etc.)
+    │   └── api/                        # Domain API classes (one per domain)
+    ├── commonTest/                     # All tests (MockEngine-based)
+    ├── jvmMain/                        # OkHttp engine
+    ├── jsMain/                         # JS engine
+    └── nativeMain/                     # Darwin engine (iOS/macOS)
 ```
 
 ## CI Pipeline
@@ -110,7 +111,7 @@ The release workflow runs CI first, then publishes all KMP targets to GitHub Pac
 
 ## Pull Request Checklist
 
-- [ ] Tests pass (`./gradlew jvmTest` at minimum)
-- [ ] No lint errors (`./gradlew detekt ktlintCheck`)
+- [ ] Tests pass (`./gradlew sdk:jvmTest` at minimum)
+- [ ] No lint errors (`./gradlew sdk:detekt sdk:ktlintCheck`)
 - [ ] New public API has KDoc
 - [ ] README updated if API surface changed

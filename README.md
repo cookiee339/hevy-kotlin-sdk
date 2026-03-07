@@ -209,17 +209,17 @@ try {
 
 | Command                              | Description                                                             |
 |--------------------------------------|-------------------------------------------------------------------------|
-| `./gradlew build`                    | Compile all KMP targets                                                 |
-| `./gradlew jvmTest`                  | Run tests on JVM                                                        |
-| `./gradlew jsNodeTest`               | Run tests on Node.js                                                    |
-| `./gradlew macosArm64Test`           | Run tests on macOS (Apple Silicon)                                      |
-| `./gradlew iosSimulatorArm64Test`    | Run tests on iOS Simulator                                              |
-| `./gradlew allTests`                 | Run tests on all platforms                                              |
-| `./gradlew detekt`                   | Static analysis (detekt)                                                |
-| `./gradlew ktlintCheck`              | Code style check (ktlint)                                               |
-| `./gradlew ktlintFormat`             | Auto-format code (ktlint)                                               |
-| `./gradlew publishToMavenLocal`      | Publish to local Maven repository                                       |
-| `./gradlew publish`                  | Publish to GitHub Packages (requires `GITHUB_ACTOR` and `GITHUB_TOKEN`) |
+| `./gradlew sdk:build`                    | Compile all KMP targets                                                 |
+| `./gradlew sdk:jvmTest`                  | Run tests on JVM                                                        |
+| `./gradlew sdk:jsNodeTest`               | Run tests on Node.js                                                    |
+| `./gradlew sdk:macosArm64Test`           | Run tests on macOS (Apple Silicon)                                      |
+| `./gradlew sdk:iosSimulatorArm64Test`    | Run tests on iOS Simulator                                              |
+| `./gradlew sdk:allTests`                 | Run tests on all platforms                                              |
+| `./gradlew sdk:detekt`                   | Static analysis (detekt)                                                |
+| `./gradlew sdk:ktlintCheck`              | Code style check (ktlint)                                               |
+| `./gradlew sdk:ktlintFormat`             | Auto-format code (ktlint)                                               |
+| `./gradlew sdk:publishToMavenLocal`      | Publish to local Maven repository                                       |
+| `./gradlew sdk:publish`                  | Publish to GitHub Packages (requires `GITHUB_ACTOR` and `GITHUB_TOKEN`) |
 <!-- END AUTO-GENERATED -->
 
 ### CI / Release

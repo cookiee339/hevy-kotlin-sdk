@@ -30,7 +30,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Publish all targets
-        run: ./gradlew publish
+        run: ./gradlew sdk:publish
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,12 +53,12 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Generate API documentation
-        run: ./gradlew dokkaGeneratePublicationHtml
+        run: ./gradlew sdk:dokkaGeneratePublicationHtml
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/dokka/html
+          path: sdk/build/dokka/html
 
       - name: Deploy to GitHub Pages
         id: deploy

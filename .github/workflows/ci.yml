@@ -29,10 +29,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Run detekt
-        run: ./gradlew detekt
+        run: ./gradlew sdk:detekt
 
       - name: Run ktlint
-        run: ./gradlew ktlintCheck
+        run: ./gradlew sdk:ktlintCheck
 
   test-jvm:
     name: Test (JVM)
@@ -48,14 +48,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Run JVM tests
-        run: ./gradlew jvmTest
+        run: ./gradlew sdk:jvmTest
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results-jvm
-          path: build/reports/tests/jvmTest/
+          path: sdk/build/reports/tests/jvmTest/
           retention-days: 14
 
   test-js:
@@ -72,14 +72,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Run JS tests
-        run: ./gradlew jsNodeTest
+        run: ./gradlew sdk:jsNodeTest
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results-js
-          path: build/reports/tests/jsNodeTest/
+          path: sdk/build/reports/tests/jsNodeTest/
           retention-days: 14
 
   test-apple:
@@ -96,10 +96,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Run macOS tests
-        run: ./gradlew macosArm64Test
+        run: ./gradlew sdk:macosArm64Test
 
       - name: Run iOS simulator tests
-        run: ./gradlew iosSimulatorArm64Test
+        run: ./gradlew sdk:iosSimulatorArm64Test
 
       - name: Upload test results
         if: always()
@@ -107,6 +107,6 @@ jobs:
         with:
           name: test-results-apple
           path: |
-            build/reports/tests/macosArm64Test/
-            build/reports/tests/iosSimulatorArm64Test/
+            sdk/build/reports/tests/macosArm64Test/
+            sdk/build/reports/tests/iosSimulatorArm64Test/
           retention-days: 14
