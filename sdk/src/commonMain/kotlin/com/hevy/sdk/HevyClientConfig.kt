@@ -11,12 +11,13 @@ import io.ktor.client.HttpClient
  *
  * @property apiKey Hevy API key (UUID). Required.
  * @property baseUrl API base URL. Defaults to the Hevy production URL.
- * @property httpClient Internal. Optional pre-configured Ktor [HttpClient]. When null, the SDK creates one.
+ * @property httpClient Optional pre-configured Ktor [HttpClient]. When null, the SDK creates one.
+ *   Useful for providing a specific engine (e.g., CIO for GraalVM native-image).
  */
 class HevyClientConfig(
     internal val apiKey: String,
     val baseUrl: String = ApiConstants.BASE_URL,
-    internal val httpClient: HttpClient? = null,
+    val httpClient: HttpClient? = null,
 ) {
     init {
         require(apiKey.isNotBlank()) { "apiKey must not be blank" }
